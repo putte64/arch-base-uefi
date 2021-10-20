@@ -13,7 +13,7 @@
 10. Install the base packages into /mnt (`## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`)
 11. Generate the FSTAB file with: `## genfstab -U /mnt >> /mnt/etc/fstab`
 12. Chroot in with: `## arch-chroot /mnt`
-13. Download the git repository with git clone https://gitlab.com/eflinux/arch-basic
-14. cd arch-basic
-15. chmod +x install-uefi.sh
-16. run with ./install-uefi.sh
+13. Download the git repository with: `## git clone https://github.com/putte64/arch-base-uefi`
+14. `## cd arch-basic`
+15. `## chmod +x install-uefi.sh`
+16. `## run with ./install-uefi.sh`
