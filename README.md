@@ -5,7 +5,7 @@
 4. Check synced time service ## timedatectl set-ntp true (check status with ## timedatectl status)
 5. Refresh the servers with pacman -Syy
 ## Partition the disk
-7. Format the partitions
+1. Format the partitions
 8. Mount the partitions
 9. Install the base packages into /mnt (pacstrap /mnt base linux linux-firmware git vim intel-ucode (or amd-ucode))
 10. Generate the FSTAB file with genfstab -U /mnt >> /mnt/etc/FSTAB
