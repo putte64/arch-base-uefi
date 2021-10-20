@@ -1,4 +1,5 @@
 # arch-base-uefi
+*WARNING: **NOT** intended for public use. Use at your own risk.
 1. If needed, load your keymap : `## loadkeys no`
 2. Check that we are indeed using EFI : `## ls /sys/firmware/efi/efivars`
 3. Check for internet connection : `## ping archlinux.org`
@@ -7,13 +8,13 @@
 1. Format the partitions
     Find your drive `## fdisk -l` or `## lsblk`
     
-8. Mount the partitions
+1. Mount the partitions
 ## Installing base packages
     *NOTE: Live media uses reflector to sort mirrorlist, pacstrap copies that list to install*
-10. Install the base packages into /mnt (`## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`)
-11. Generate the FSTAB file with: `## genfstab -U /mnt >> /mnt/etc/fstab`
-12. Chroot in with: `## arch-chroot /mnt`
-13. Download the git repository with: `## git clone https://github.com/putte64/arch-base-uefi`
-14. `## cd arch-basic`
-15. `## chmod +x install-uefi.sh`
-16. `## run with ./install-uefi.sh`
+1. Install the base packages into /mnt (`## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`)
+1. Generate the FSTAB file with: `## genfstab -U /mnt >> /mnt/etc/fstab`
+1. Chroot in with: `## arch-chroot /mnt`
+1. Download the git repository with: `## git clone https://github.com/putte64/arch-base-uefi`
+1. `## cd arch-basic`
+1. `## chmod +x arch-base-uefi.sh`
+1. `## run with ./arch-base-uefi.sh`
