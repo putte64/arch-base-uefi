@@ -1,4 +1,4 @@
-# arch-base-uefi
+## arch-base-uefi
 If needed, load your keymap
 Refresh the servers with pacman -Syy
 Partition the disk
