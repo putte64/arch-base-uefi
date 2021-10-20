@@ -1,5 +1,5 @@
 # arch-base-uefi
-1. If needed, load your keymap : ## loadkeys no
+1. If needed, load your keymap : `## loadkeys no`
 2. Check that we are indeed using EFI : ## ls /sys/firmware/efi/efivars
 3. Check for internet connection : ## ping archlinux.org
 4. Check synced time service ## timedatectl set-ntp true (check status with ## timedatectl status)
