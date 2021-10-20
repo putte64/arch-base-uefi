@@ -8,7 +8,6 @@
 1. Generate the FSTAB file with genfstab -U /mnt >> /mnt/etc/FSTAB
 1. Chroot in with arch-chroot /mnt
 1. Download the git repository with git clone https://gitlab.com/eflinux/arch-basic
-
-cd arch-basic
-chmod +x install-uefi.sh
-run with ./install-uefi.sh
+1. cd arch-basic
+1. chmod +x install-uefi.sh
+1. run with ./install-uefi.sh
