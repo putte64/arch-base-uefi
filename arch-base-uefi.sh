@@ -35,7 +35,7 @@ pacman -Sy --needed - < pkglist.txt
 pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
 pacman -S --noconfirm xf86-video-intel
 
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 
 systemctl enable NetworkManager
