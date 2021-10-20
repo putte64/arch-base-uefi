@@ -33,3 +33,5 @@
 1. `## cd arch-basic`
 1. `## chmod +x arch-base-uefi.sh`
 1. `## run with ./arch-base-uefi.sh`
+
+# Remember to edit arch-base-uefi.sh before running
