@@ -20,9 +20,8 @@
     
 ## Mount the partitions
     `## mount /dev/XXX3 /mnt`
-    `## mkdir -p /mnt/efi`
+    `## mkdir /mnt/{efi,home}`
     `## mount /dev/XXX1 /mnt/efi`
-    `## mkdir /mnt/home`
     `## mount /dev/XXX4 /mnt/home`
 
 ## Installing base packages
