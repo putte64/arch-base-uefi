@@ -41,12 +41,12 @@ pacman -Sy --needed - < pkglist.txt
 pacman -S --noconfirm nvidia-lts nvidia-utils nvidia-settings
 pacman -S --noconfirm xf86-video-intel
 
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 
 systemctl enable NetworkManager
 # systemctl enable bluetooth
-systemctl enable cups.service
+systemctl enable cups
 systemctl enable sshd
 systemctl enable avahi-daemon
 # systemctl enable tlp # You can comment this command out if you didn't install tlp, see above
@@ -58,10 +58,11 @@ systemctl enable acpid
 
 useradd -m $localuser
 echo $localuser:password | chpasswd
-usermod -aG libvirt $localuser
+usermod -aG libvirt wheel $localuser
 
-echo "$localuser ALL=(ALL) ALL" >> /etc/sudoers.d/$localuser
+# Is this a viable method????
+# echo "$localuser ALL=(ALL) ALL" >> /etc/sudoers.d/$localuser
 
 
-printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
+printf "\e[1;32mDone! Type exit, umount -R /mnt and reboot.\e[0m"
 
