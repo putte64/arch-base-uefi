@@ -33,9 +33,8 @@ pacman -S --needed reflector rsync
 reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syyu 
 
-
+# See pkglist.txt for details and change to your needs
 pacman -Sy --needed - < pkglist.txt
-# pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
 
 # pacman -S --noconfirm xf86-video-amdgpu
 pacman -S --noconfirm nvidia-lts nvidia-utils nvidia-settings
