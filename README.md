@@ -20,18 +20,22 @@
     
 ## Mount the partitions
     `## mount /dev/XXX3 /mnt`
-    `## mkdir /mnt/{efi,home}`
-    `## mount /dev/XXX1 /mnt/efi`
+    `## mkdir -p /mnt/{boot/efi,home}`
+    `## mount /dev/XXX1 /mnt/boot/efi`
     `## mount /dev/XXX4 /mnt/home`
 
 ## Installing base packages
     *NOTE: Live media uses reflector to sort mirrorlist, pacstrap copies that list to install*
-1. Install the base packages into /mnt (`## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`)
-1. Generate the FSTAB file with: `## genfstab -U /mnt >> /mnt/etc/fstab`
-1. Chroot in with: `## arch-chroot /mnt`
-1. Download the git repository with: `## git clone https://github.com/putte64/arch-base-uefi`
-1. `## cd arch-basic`
-1. `## chmod +x arch-base-uefi.sh`
-1. `## run with ./arch-base-uefi.sh`
+1. Install the base packages into /mnt
+   `## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`
+2. Generate the FSTAB file with: 
+   `## genfstab -U /mnt >> /mnt/etc/fstab`
+3. Chroot in with: 
+   `## arch-chroot /mnt`
+4. Download the git repository and run  with: 
+   `## git clone https://github.com/putte64/arch-base-uefi`
+   `## cd arch-basic`
+   `## chmod +x arch-base-uefi.sh`
+   `## run with ./arch-base-uefi.sh`
 
 # Remember to edit arch-base-uefi.sh before running
