@@ -5,6 +5,7 @@
 3. Check for internet connection : `## ping archlinux.org`
 4. Check synced time service `## timedatectl set-ntp true` (check status with `## timedatectl status`)
 5. Edit '/etc/pacman.conf' to enable ParallelDownloads = 5
+   - 'sed -i 's/^#Para/Para/' /etc/pacman.conf'
 ## Partition the disk and format.
     Find your drive `## fdisk -l` or `## lsblk`
     `## gdisk /dev/XXX`
