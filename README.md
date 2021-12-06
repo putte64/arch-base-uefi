@@ -4,6 +4,7 @@
 2. Check that we are indeed using EFI : `## ls /sys/firmware/efi/efivars`
 3. Check for internet connection : `## ping archlinux.org`
 4. Check synced time service `## timedatectl set-ntp true` (check status with `## timedatectl status`)
+5. Edit '/etc/pacman.conf' to enable ParallelDownloads = 5
 ## Partition the disk and format.
     Find your drive `## fdisk -l` or `## lsblk`
     `## gdisk /dev/XXX`
