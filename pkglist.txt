@@ -6,7 +6,7 @@ dialog
 wpa_supplicant
 mtools
 dosfstools
-linux-headers-lts
+linux-lts-headers
 avahi
 xdg-user-dirs
 xdg-utils
@@ -15,8 +15,8 @@ gvfs-smb
 nfs-utils
 inetutils
 dnsutils
-bluez
-bluez-utils
+#bluez
+#bluez-utils
 cups
 hplip
 
