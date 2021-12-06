@@ -29,11 +29,11 @@
 ## Installing base packages
     *NOTE: Live media uses reflector to sort mirrorlist, pacstrap copies that list to install*
 1. Install the base packages into /mnt
-   `## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`
+   - `## pacstrap /mnt base base-devel linux-lts linux-firmware sof-firmware git nano intel-ucode`
 2. Generate the FSTAB file with: 
-   `## genfstab -U /mnt >> /mnt/etc/fstab`
+   - `## genfstab -U /mnt >> /mnt/etc/fstab`
 3. Chroot in with: 
-   `## arch-chroot /mnt`
+   - `## arch-chroot /mnt`
 4. Download the git repository and run  with: 
    - `## git clone https://github.com/putte64/arch-base-uefi`
    - `## cd arch-basic`
