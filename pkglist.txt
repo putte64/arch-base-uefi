@@ -1,12 +1,12 @@
-'mesa' # Essential Xorg First
-'xorg'
-'xorg-server'
-'xorg-apps'
-'xorg-drivers'
-'xorg-xkill'
-'xorg-xinit'
-'xterm'
-'plasma-desktop'
+mesa
+xorg
+xorg-server
+xorg-apps
+xorg-drivers
+xorg-xkill
+xorg-xinit
+xterm
+plasma-desktop
 grub
 efibootmgr
 networkmanager
