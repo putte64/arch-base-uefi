@@ -36,7 +36,7 @@
    - `## arch-chroot /mnt`
 4. Download the git repository and run  with: 
    - `## git clone https://github.com/putte64/arch-base-uefi`
-   - `## cd arch-basic`
+   - `## cd arch-base-uefi`
    - `## chmod +x arch-base-uefi.sh`
    - `## run with ./arch-base-uefi.sh`
 
