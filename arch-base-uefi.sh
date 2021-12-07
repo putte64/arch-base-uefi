@@ -52,7 +52,7 @@ pacman -Sy --noconfirm
 pacman -Syyu 
 
 # See pkglist.txt for details and change to your needs
-pacman -Sy --needed - < pkglist.txt
+pacman -Sy --needed --noconfirm - < pkglist.txt
 
 ################################################
 # determine processor type and install microcode
