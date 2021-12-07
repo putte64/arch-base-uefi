@@ -101,6 +101,14 @@ systemctl enable fstrim.timer
 # systemctl enable firewalld
 systemctl enable acpid
 
+echo -e "\nEnabling Login Display Manager"
+systemctl enable sddm.service
+echo -e "\nSetup SDDM Theme"
+cat <<EOF > /etc/sddm.conf
+[Theme]
+Current=Nordic
+EOF
+
 if ! source install.conf; then
 	read -p "Please enter username:" username
 echo "username=$username" >> /arch-base-uefi/install.conf
