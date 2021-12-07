@@ -35,6 +35,7 @@ bash-completion
 openssh
 rsync
 acpi
+acpid
 acpi_call-lts
 ntfs-3g
 terminus-font
