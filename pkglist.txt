@@ -15,11 +15,8 @@ gvfs-smb
 nfs-utils
 inetutils
 dnsutils
-#bluez
-#bluez-utils
 cups
 hplip
-
 alsa-utils
 pipewire
 pipewire-alsa
@@ -28,10 +25,7 @@ pipewire-jack
 bash-completion
 openssh
 rsync
-acpi 
+acpi
 acpi_call-lts
-#edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak nss-mdns acpid 
-os-prober 
 ntfs-3g
 terminus-font
-
