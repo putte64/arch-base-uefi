@@ -29,6 +29,7 @@ echo root:password | chpasswd
 # You can remove the tlp package if you are installing on a desktop or vm
 
 # pacman -Syy
+sed -i 's/^#Para/Para/' /etc/pacman.conf
 pacman -S --needed reflector rsync
 reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syyu 
