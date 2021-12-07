@@ -40,4 +40,4 @@
    - `## chmod +x arch-base-uefi.sh`
    - `## run with ./arch-base-uefi.sh`
 
-# Remember to edit arch-base-uefi.sh before running
+# Remember to edit arch-base-uefi.sh and install.conf before running
