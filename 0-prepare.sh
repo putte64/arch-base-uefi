@@ -49,10 +49,14 @@ sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 sgdisk -n 1::+512M --typecode=1:ef00 --change-name=1:'EFI' ${DISK} # partition 1 (EFI Partition)
 sgdisk -n 2::+4G --typecode=2:8200 --change-name=2:'SWAP' ${DISK} # partition 2 (SWAP Partition)
 sgdisk -n 3::+50G --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (ROOT Partition)
-sgdisk -n 4::-128M --typecode=4:8300 --change-name=3:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
+sgdisk -n 4::-128M --typecode=4:8300 --change-name=4:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
 if [[ ! -d "/sys/firmware/efi" ]]; then
     sgdisk -A 1:set:2 ${DISK}
 fi
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+echo "Continuing in 30 Seconds ..." && sleep 30
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # make filesystems
 echo -e "\nCreating Filesystems...\n$HR"
@@ -65,7 +69,7 @@ mkfs.ext4 -n "HOME" "${DISK}p4"
 else
 mkfs.vfat -n "EFI" "${DISK}1"
 mkswap -L "SWAP" "${DISK}2"
-swapon "${DISK}p2"
+swapon "${DISK}2"
 mkfs.ext4 -n "ROOT" "${DISK}3"
 mkfs.ext4 -n "HOME" "${DISK}4"
 fi
@@ -74,10 +78,10 @@ mkdir -p /mnt/{boot/efi,home}`
 mount "${DISK}1" /mnt/boot/efi`
 mount "${DISK}4" /mnt/home`
 lsblk -f
-
+echo "Continuing in 30 Seconds ..." && sleep 30
 ;;
 *)
-echo "Continuing in 20 Seconds ..." && sleep 20
+echo "Continuing in 30 Seconds ..." && sleep 30
 # reboot now
 ;;
 esac
