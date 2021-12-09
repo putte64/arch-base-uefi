@@ -73,12 +73,46 @@ mount "${DISK}3" /mnt`
 mkdir -p /mnt/{boot/efi,home}`
 mount "${DISK}1" /mnt/boot/efi`
 mount "${DISK}4" /mnt/home`
+lsblk -f
 
 ;;
 *)
-echo "Rebooting in 3 Seconds ..." && sleep 1
-echo "Rebooting in 2 Seconds ..." && sleep 1
-echo "Rebooting in 1 Second ..." && sleep 1
-reboot now
+echo "Continuing in 20 Seconds ..." && sleep 20
+# reboot now
 ;;
 esac
+
+echo "--------------------------------------"
+echo "-- Arch Install on Main Drive       --"
+echo "--------------------------------------"
+pacstrap /mnt base base-devel linux-lts linux-firmware nano sudo archlinux-keyring wget git --noconfirm --needed
+genfstab -U /mnt >> /mnt/etc/fstab
+
+echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
+cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+
+
+echo "--------------------------------------"
+echo "--GRUB BIOS Bootloader Install&Check--"
+echo "--------------------------------------"
+if [[ ! -d "/sys/firmware/efi" ]]; then
+    grub-install --boot-directory=/mnt/boot ${DISK}
+fi
+echo -e "\nFINAL SETUP AND CONFIGURATION"
+echo "--------------------------------------"
+echo "-- GRUB EFI Bootloader Install&Check--"
+echo "--------------------------------------"
+if [[ -d "/sys/firmware/efi" ]]; then
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+fi
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+umount -R /mnt
+
+    echo "Rebooting in 4 Seconds ..." && sleep 1
+    echo "Rebooting in 3 Seconds ..." && sleep 1
+    echo "Rebooting in 2 Seconds ..." && sleep 1
+    echo "Rebooting in 1 Second ..." && sleep 1
+    reboot now
