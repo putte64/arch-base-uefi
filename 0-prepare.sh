@@ -101,7 +101,7 @@ mkdir /mnt/root/arch-base-uefi
 
 echo "cp -R /arch-base-uefi /mnt/root/arch-base-uefi" && sleep 10
 
-cp -R /arch-base-uefi /mnt/root/arch-base-uefi
+cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi
 
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
