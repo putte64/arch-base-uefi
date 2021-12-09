@@ -67,11 +67,6 @@ mkfs.vfat -F32 "${DISK}1"
 mkfs.ext4 "${DISK}3"
 mkfs.ext4 "${DISK}4"
 
-lsblk -f
-echo "... Troubleshoot WAIT ..." 
-echo "... Troubleshoot WAIT ..." && sleep 20
-echo "... Troubleshoot WAIT ..." 
-
 mkswap "${DISK}2"
 swapon "${DISK}2"
 fi
@@ -99,9 +94,9 @@ echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 
 mkdir /mnt/root/arch-base-uefi
 
-echo "cp -R /arch-base-uefi /mnt/root/arch-base-uefi" && sleep 10
+echo "cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi" && sleep 10
 
-cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi
+cp -R /root/arch-base-uefi /mnt/root/
 
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
