@@ -86,7 +86,7 @@ echo "username=$username" >> ${HOME}/arch-base-uefi/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
-    useradd -m -G wheel,libvirt -s /bin/bash $username 
+    useradd -m -G wheel -s /bin/bash $username 
 	passwd $username
 	cp -R /root/arch-base-uefi /home/$username/
     chown -R $username: /home/$username/arch-base-uefi
