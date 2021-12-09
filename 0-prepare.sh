@@ -46,13 +46,13 @@ sgdisk -Z ${DISK} # zap all on disk
 sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 
 # create partitions
-sgdisk -n 1::+300M --typecode=0:ef00 --change-name=1:'EFI' ${DISK} # partition 1 (EFI Partition)
-sgdisk -n 2::+2G --typecode=1:8200 --change-name=2:'SWAP' ${DISK} # partition 2 (SWAP Partition)
-sgdisk -n 3::+30G --typecode=2:8304 --change-name=3:'ROOT' ${DISK} # partition 3 (ROOT Partition)
-sgdisk -n 4::-0 --typecode=3:8302 --change-name=4:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
-if [[ ! -d "/sys/firmware/efi" ]]; then
-    sgdisk -A 1:set:2 ${DISK}
-fi
+sgdisk -n 0::+300M --typecode=0:ef00 ${DISK} # partition 1 (EFI Partition)
+sgdisk -n 0::+2G --typecode=0:8200 ${DISK} # partition 2 (SWAP Partition)
+sgdisk -n 0::+30G --typecode=0:8304 ${DISK} # partition 3 (ROOT Partition)
+sgdisk -n 0:-128M:0 --typecode=0:8302 ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
+#if [[ ! -d "/sys/firmware/efi" ]]; then
+#    sgdisk -A 1:set:2 ${DISK}
+#fi
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lsblk -f
