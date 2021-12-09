@@ -63,21 +63,23 @@ echo "Continuing in 30 Seconds ..." && sleep 60
 echo -e "\nCreating Filesystems...\n$HR"
 if [[ ${DISK} =~ "nvme" ]]; then
 mkfs.vfat -n "EFI" "${DISK}p1"
-mkswap -L "SWAP" "${DISK}p2"
-swapon "${DISK}p2"
 mkfs.ext4 -n "ROOT" "${DISK}p3"
 mkfs.ext4 -n "HOME" "${DISK}p4"
+echo "... Troubleshoot WAIT ..." && sleep 20
+mkswap -L "SWAP" "${DISK}p2"
+swapon "${DISK}p2"
 else
 mkfs.vfat -n "EFI" "${DISK}1"
-mkswap -L "SWAP" "${DISK}2"
-swapon "${DISK}2"
 mkfs.ext4 -n "ROOT" "${DISK}3"
 mkfs.ext4 -n "HOME" "${DISK}4"
+echo "... Troubleshoot WAIT ..." && sleep 20
+mkswap -L "SWAP" "${DISK}2"
+swapon "${DISK}2"
 fi
-mount "${DISK}3" /mnt`
-mkdir -p /mnt/{boot/efi,home}`
-mount "${DISK}1" /mnt/boot/efi`
-mount "${DISK}4" /mnt/home`
+mount "${DISK}3" /mnt
+mkdir -p /mnt/{boot/efi,home}
+mount "${DISK}1" /mnt/boot/efi
+mount "${DISK}4" /mnt/home
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lsblk -f
