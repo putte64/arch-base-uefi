@@ -57,17 +57,23 @@ fi
 # make filesystems
 echo -e "\nCreating Filesystems...\n$HR"
 if [[ ${DISK} =~ "nvme" ]]; then
-mkfs.vfat -F32 -n "EFIBOOT" "${DISK}p2"
-mkfs.btrfs -L "ROOT" "${DISK}p3" -f
-mount -t btrfs "${DISK}p3" /mnt
+mkfs.vfat -n "EFI" "${DISK}p1"
+mkswap -L "SWAP" "${DISK}p2"
+swapon "${DISK}p2"
+mkfs.ext4 -n "ROOT" "${DISK}p3"
+mkfs.ext4 -n "HOME" "${DISK}p4"
 else
-mkfs.vfat -F32 -n "EFIBOOT" "${DISK}2"
-mkfs.btrfs -L "ROOT" "${DISK}3" -f
-mount -t btrfs "${DISK}3" /mnt
+mkfs.vfat -n "EFI" "${DISK}1"
+mkswap -L "SWAP" "${DISK}2"
+swapon "${DISK}p2"
+mkfs.ext4 -n "ROOT" "${DISK}3"
+mkfs.ext4 -n "HOME" "${DISK}4"
 fi
-ls /mnt | xargs btrfs subvolume delete
-btrfs subvolume create /mnt/@
-umount /mnt
+mount "${DISK}3" /mnt`
+mkdir -p /mnt/{boot/efi,home}`
+mount "${DISK}1" /mnt/boot/efi`
+mount "${DISK}4" /mnt/home`
+
 ;;
 *)
 echo "Rebooting in 3 Seconds ..." && sleep 1
