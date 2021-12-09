@@ -46,10 +46,10 @@ sgdisk -Z ${DISK} # zap all on disk
 sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 
 # create partitions
-sgdisk -n 0::+300M --typecode=0:ef00 ${DISK} # partition 1 (EFI Partition)
-sgdisk -n 0::+2G --typecode=0:8200 ${DISK} # partition 2 (SWAP Partition)
-sgdisk -n 0::+30G --typecode=0:8304 ${DISK} # partition 3 (ROOT Partition)
-sgdisk -n 0:-128M:0 --typecode=0:8302 ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
+sgdisk -n 0::+300M --typecode=0:ef00 --change-name=0:'EFI' ${DISK} # partition 1 (EFI Partition)
+sgdisk -n 0::+2G --typecode=0:8200 --change-name=0:'SWAP' ${DISK} # partition 2 (SWAP Partition)
+sgdisk -n 0::+30G --typecode=0:8304 --change-name=0:'ROOT' ${DISK} # partition 3 (ROOT Partition)
+sgdisk -n 0:-128M:0 --typecode=0:8302 --change-name=0:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
 #if [[ ! -d "/sys/firmware/efi" ]]; then
 #    sgdisk -A 1:set:2 ${DISK}
 #fi
@@ -62,18 +62,18 @@ echo "Continuing in 30 Seconds ..." && sleep 60
 # make filesystems
 echo -e "\nCreating Filesystems...\n$HR"
 if [[ ${DISK} =~ "nvme" ]]; then
-mkfs.vfat -n "EFI" "${DISK}p1"
-mkfs.ext4 -n "ROOT" "${DISK}p3"
-mkfs.ext4 -n "HOME" "${DISK}p4"
+mkfs.vfat "${DISK}p1"
+mkfs.ext4 "${DISK}p3"
+mkfs.ext4 "${DISK}p4"
 echo "... Troubleshoot WAIT ..." && sleep 20
-mkswap -L "SWAP" "${DISK}p2"
+mkswap "${DISK}p2"
 swapon "${DISK}p2"
 else
-mkfs.vfat -n "EFI" "${DISK}1"
-mkfs.ext4 -n "ROOT" "${DISK}3"
-mkfs.ext4 -n "HOME" "${DISK}4"
+mkfs.vfat "${DISK}1"
+mkfs.ext4 "${DISK}3"
+mkfs.ext4 "${DISK}4"
 echo "... Troubleshoot WAIT ..." && sleep 20
-mkswap -L "SWAP" "${DISK}2"
+mkswap "${DISK}2"
 swapon "${DISK}2"
 fi
 mount "${DISK}3" /mnt
