@@ -49,7 +49,7 @@ echo -e "\nInstalling Base System\n"
 
 
 # See pkglist.txt for details and change to your needs
-pacman -Sy --needed --noconfirm - < pkglist.txt
+pacman -Sy --needed --noconfirm - < /root/arch-base-uefi/pkglist.txt
 
 
 #
@@ -80,7 +80,7 @@ elif lspci | grep -E "Integrated Graphics Controller"; then
 fi
 
 echo -e "\nDone!\n"
-if ! source install.conf; then
+if ! source /root/arch-base-uefi/install.conf; then
 	read -p "Please enter username:" username
 echo "username=$username" >> ${HOME}/arch-base-uefi/install.conf
 fi
