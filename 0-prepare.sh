@@ -69,7 +69,7 @@ echo "... Troubleshoot WAIT ..." && sleep 20
 mkswap "${DISK}p2"
 swapon "${DISK}p2"
 else
-mkfs.vfat "${DISK}1"
+mkfs.vfat -F32 "${DISK}1"
 mkfs.ext4 "${DISK}3"
 mkfs.ext4 "${DISK}4"
 echo "... Troubleshoot WAIT ..." && sleep 20
@@ -106,16 +106,7 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 echo "--------------------------------------"
 echo "--GRUB BIOS Bootloader Install&Check--"
 echo "--------------------------------------"
-if [[ ! -d "/sys/firmware/efi" ]]; then
-    grub-install --boot-directory=/mnt/boot ${DISK}
-fi
-echo -e "\nFINAL SETUP AND CONFIGURATION"
-echo "--------------------------------------"
-echo "-- GRUB EFI Bootloader Install&Check--"
-echo "--------------------------------------"
-if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-fi
+
 grub-mkconfig -o /boot/grub/grub.cfg
 
 exit
