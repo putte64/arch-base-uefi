@@ -9,7 +9,7 @@ echo "-------------------------------------------------"
 iso=$(curl -4 ifconfig.co/country-iso)
 timedatectl set-ntp true
 pacman -S --noconfirm pacman-contrib terminus-font
-setfont ter-v22b
+setfont ter-v12b
 sed -i 's/^#Para/Para/' /etc/pacman.conf
 pacman -S --noconfirm reflector rsync grub
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
@@ -49,13 +49,14 @@ sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 sgdisk -n 1::+512M --typecode=1:ef00 --change-name=1:'EFI' ${DISK} # partition 1 (EFI Partition)
 sgdisk -n 2::+4G --typecode=2:8200 --change-name=2:'SWAP' ${DISK} # partition 2 (SWAP Partition)
 sgdisk -n 3::+50G --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (ROOT Partition)
-sgdisk -n 4::-128M --typecode=4:8300 --change-name=4:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
+sgdisk -n 4::-0 --typecode=4:8300 --change-name=4:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
 if [[ ! -d "/sys/firmware/efi" ]]; then
     sgdisk -A 1:set:2 ${DISK}
 fi
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-echo "Continuing in 30 Seconds ..." && sleep 30
+lsblk -f
+echo "Continuing in 30 Seconds ..." && sleep 60
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # make filesystems
@@ -77,8 +78,11 @@ mount "${DISK}3" /mnt`
 mkdir -p /mnt/{boot/efi,home}`
 mount "${DISK}1" /mnt/boot/efi`
 mount "${DISK}4" /mnt/home`
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 lsblk -f
-echo "Continuing in 30 Seconds ..." && sleep 30
+echo "Continuing in 30 Seconds ..." && sleep 60
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;
 *)
 echo "Continuing in 30 Seconds ..." && sleep 30
@@ -93,7 +97,7 @@ pacstrap /mnt base base-devel linux-lts linux-firmware nano sudo archlinux-keyri
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
-cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
+cp -R ${SCRIPT_DIR} /mnt/root/arch-base-uefi
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 
