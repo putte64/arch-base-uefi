@@ -19,12 +19,9 @@ echo -e "-Setting up $iso mirrors for faster downloads"
 echo -e "-------------------------------------------------------------------------"
 
 reflector -a 12 -c $iso,se,dk,nl,de -f 5 -l 20 --sort rate --sort country -p https --threads 2 --save /etc/pacman.d/mirrorlist
-#############################mkdir /mnt
-
+mkdir /mnt
 
 echo -e "\nInstalling prereqs...\n$HR"
-###################pacman -S --noconfirm gptfdisk
-
 
 echo "-------------------------------------------------"
 echo "-------select your disk to format----------------"
@@ -54,10 +51,6 @@ sgdisk -n 0::-128M --typecode=0:8302 --change-name=0:'HOME' ${DISK} # partition 
 #    sgdisk -A 1:set:2 ${DISK}
 #fi
 
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-lsblk -f
-echo "Continuing in 30 Seconds ..." && sleep 30
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # make filesystems
 echo -e "\nCreating Filesystems...\n$HR"
@@ -66,8 +59,6 @@ mkfs.vfat "${DISK}p1"
 mkfs.ext4 "${DISK}p3"
 mkfs.ext4 "${DISK}p4"
 
-lsblk -f
-echo "... Troubleshoot WAIT ..." && sleep 20
 
 mkswap "${DISK}p2"
 swapon "${DISK}p2"
@@ -89,14 +80,9 @@ mkdir -p /mnt/{boot/efi,home}
 mount "${DISK}1" /mnt/boot/efi
 mount "${DISK}4" /mnt/home
 
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-lsblk -f
-echo "Continuing in 30 Seconds ..." && sleep 30
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;
 *)
-echo "Continuing in 30 Seconds ..." && sleep 30
-# reboot now
+
 ;;
 esac
 
@@ -104,12 +90,19 @@ echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
 pacstrap /mnt base base-devel linux-lts linux-firmware nano sudo archlinux-keyring wget git --noconfirm --needed
+
+echo "Wait for packages to be installed!!!!" && sleep 30
+
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 
 mkdir /mnt/root/arch-base-uefi
-cp -R ${SCRIPT_DIR} /mnt/root/arch-base-uefi
+
+echo "cp -R /arch-base-uefi /mnt/root/arch-base-uefi" && sleep 10
+
+cp -R /arch-base-uefi /mnt/root/arch-base-uefi
+
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 
