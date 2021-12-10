@@ -33,13 +33,12 @@ PKGS=(
 'ocs-url' # install packages from websites
 'openlp'
 'sddm-nordic-theme-git'
-'snapper-gui-git'
 'ttf-droid'
 'ttf-hack'
 'ttf-meslo' # Nerdfont package
 'ttf-roboto'
 'zoom' # video conferences
-'snap-pac'
+'vlc'
 )
 
 for PKG in "${PKGS[@]}"; do
