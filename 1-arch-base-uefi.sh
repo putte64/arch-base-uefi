@@ -47,14 +47,17 @@ pacman -Sy --noconfirm
 
 echo -e "\nInstalling Base System\n"
 
-
+######################################################
 # See pkglist.txt for details and change to your needs
+######################################################
+
 pacman -Sy --needed --noconfirm - < /root/arch-base-uefi/pkglist.txt
 
-
-#
+set -x
+################################################
 # determine processor type and install microcode
-# 
+# ##############################################
+
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
 	GenuineIntel)
@@ -68,6 +71,11 @@ case "$proc_type" in
 		proc_ucode=amd-ucode.img
 		;;
 esac	
+
+echo "processor install ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
+echo $proc_type
+sleep 30
+set +x
 
 # Graphics Drivers find and install
 if lspci | grep -E "NVIDIA|GeForce"; then
