@@ -1,5 +1,10 @@
 #!/bin/bash
 
+        exec 5> > debug_output.txt
+        BASH_XTRACEFD="5"
+        PS4='$LINENO: '
+        set -ex
+
     bash 0-prepare.sh
     arch-chroot /mnt /root/arch-base-uefi/1-arch-base-uefi.sh
     source /mnt/root/arch-base-uefi/install.conf
