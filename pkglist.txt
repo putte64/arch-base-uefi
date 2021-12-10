@@ -44,3 +44,10 @@ zsh
 zsh-syntax-highlighting
 zsh-autosuggestions
 vlc
+obs-studio
+ffmpeg
+v4l2loopback-dkms
+v4l-util
+sndio
+libva-intel-driver
+yt-dlp
