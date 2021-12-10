@@ -43,3 +43,4 @@ p7zip
 zsh
 zsh-syntax-highlighting
 zsh-autosuggestions
+vlc
