@@ -40,3 +40,6 @@ acpi_call-lts
 ntfs-3g
 terminus-font
 p7zip
+zsh
+zsh-syntax-highlighting
+zsh-autosuggestions
