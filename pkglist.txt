@@ -58,3 +58,5 @@ python-pip
 sddm-kcm
 libreoffice-fresh
 libreoffice-fresh-nb
+gimp
+gimp-nufraw
