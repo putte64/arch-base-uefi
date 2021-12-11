@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+  exec 5> debug_prepare.txt
+        BASH_XTRACEFD="5"
+        PS4='$LINENO:
+
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 echo "-------------------------------------------------"
