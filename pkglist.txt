@@ -47,7 +47,7 @@ vlc
 obs-studio
 ffmpeg
 v4l2loopback-dkms
-v4l-util
+v4l-utils
 sndio
 libva-intel-driver
 yt-dlp
