@@ -16,7 +16,7 @@ timedatectl set-ntp true
 pacman -S --noconfirm pacman-contrib terminus-font
 setfont ter-112n
 sed -i 's/^#Para/Para/' /etc/pacman.conf
-pacman -S --noconfirm rsync grub
+pacman -S --noconfirm --needed rsync grub
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 echo -e "-------------------------------------------------------------------------"
