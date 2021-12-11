@@ -30,10 +30,19 @@ locale-gen
 timedatectl --no-ask-password set-timezone Europe/Oslo
 timedatectl --no-ask-password set-ntp 1
 hwclock --systohc
+
+############################################
+set -x
+############################################
+
 localectl --no-ask-password set-locale LANG="nb_NO.UTF-8" LC_TIME="nb_NO.UTF-8"
 
 # Set keymaps
 localectl --no-ask-password set-keymap no
+
+############################################
+set +x
+############################################
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
