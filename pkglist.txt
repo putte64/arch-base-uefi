@@ -51,3 +51,8 @@ v4l-utils
 sndio
 libva-intel-driver
 yt-dlp
+python-notify2
+python-psutil
+python-pyqt5
+python-pip
+sddm-kcm
