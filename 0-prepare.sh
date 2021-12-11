@@ -87,7 +87,7 @@ echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
 pacstrap /mnt base base-devel linux-lts linux-firmware nano sudo archlinux-keyring wget git --noconfirm --needed
 
-echo "Wait for packages to be installed!!!!" && sleep 30
+echo "Wait for packages to be installed!!!!" && sleep 5
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -96,7 +96,7 @@ echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 mkdir /mnt/root/arch-base-uefi
 
 echo "#################################################################"
-echo "cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi" && sleep 30
+echo "cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi" && sleep 5
 echo "#################################################################"
 
 cp -R /root/arch-base-uefi /mnt/root/
