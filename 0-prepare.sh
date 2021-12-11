@@ -24,7 +24,7 @@ echo -e "-Setting up $iso mirrors for faster downloads"
 echo -e "-------------------------------------------------------------------------"
 
 reflector -a 12 -c $iso,se,dk,nl,de -f 5 -l 20 --sort rate --sort country -p https --threads 2 --save /etc/pacman.d/mirrorlist
-mkdir /mnt
+#mkdir /mnt
 
 echo -e "\nInstalling prereqs...\n$HR"
 
