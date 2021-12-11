@@ -83,19 +83,22 @@ sleep 5
 
 # Graphics Drivers find and install
 if lspci | grep -E "NVIDIA|GeForce"; then
-    pacman -S nvidia --noconfirm --needed
-	nvidia-xconfig
+    pacman -S nvidia-lts nvidia-settings nvidia-utils --noconfirm --needed
+	
 elif lspci | grep -E "Radeon"; then
     pacman -S xf86-video-amdgpu --noconfirm --needed
+    
 elif lspci | grep -E "Integrated Graphics Controller"; then
     pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
 fi
-
 echo -e "\nDone!\n"
+
+# User create and password setting
 if ! source /root/arch-base-uefi/install.conf; then
 	read -p "Please enter username:" username
 echo "username=$username" >> ${HOME}/arch-base-uefi/install.conf
 fi
+
 if [ $(whoami) = "root"  ];
 then
     useradd -m -G wheel -s /bin/bash $username 
