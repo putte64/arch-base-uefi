@@ -95,7 +95,9 @@ echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 
 mkdir /mnt/root/arch-base-uefi
 
-echo "cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi" && sleep 10
+echo "#################################################################"
+echo "cp -R /root/arch-base-uefi /mnt/root/arch-base-uefi" && sleep 30
+echo "#################################################################"
 
 cp -R /root/arch-base-uefi /mnt/root/
 
