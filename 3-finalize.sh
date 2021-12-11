@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+exec 5> debug_finalize.txt
+        BASH_XTRACEFD="5"
+        PS4='$LINENO: '
+        set -ex
+
 echo -e "\nFINAL SETUP AND CONFIGURATION"
 echo "--------------------------------------"
 echo "-- GRUB EFI Bootloader Install&Check--"
