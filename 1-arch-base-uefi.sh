@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+exec 5> debug_arch-base-uefi.txt
+        BASH_XTRACEFD="5"
+        PS4='$LINENO:
+
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
