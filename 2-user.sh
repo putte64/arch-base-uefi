@@ -2,7 +2,9 @@
 
 exec 5> debug_user.txt
         BASH_XTRACEFD="5"
-        PS4='$LINENO:
+        PS4='$LINENO: '
+        set -ex
+        
 
 echo -e "\nINSTALLING AUR SOFTWARE\n"
 # You can solve users running this script as root with this and then doing the same for the next for statement. However I will leave this up to you.
