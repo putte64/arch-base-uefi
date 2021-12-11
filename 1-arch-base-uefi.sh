@@ -59,7 +59,6 @@ echo -e "\nInstalling Base System\n"
 
 pacman -Sy --needed --noconfirm - < /root/arch-base-uefi/pkglist.txt
 
-set -x
 ################################################
 # determine processor type and install microcode
 # ##############################################
@@ -80,8 +79,7 @@ esac
 
 echo "processor install ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
 echo $proc_type
-sleep 30
-set +x
+sleep 5
 
 # Graphics Drivers find and install
 if lspci | grep -E "NVIDIA|GeForce"; then
