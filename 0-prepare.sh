@@ -2,7 +2,8 @@
 
   exec 5> debug_prepare.txt
         BASH_XTRACEFD="5"
-        PS4='$LINENO:
+        PS4='$LINENO: '
+        set -ex
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
