@@ -56,3 +56,5 @@ python-psutil
 python-pyqt5
 python-pip
 sddm-kcm
+libreoffice-fresh
+libreoffice-fresh-nb
