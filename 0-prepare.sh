@@ -76,8 +76,8 @@ mkswap "${DISK}2"
 swapon "${DISK}2"
 fi
 mount "${DISK}3" /mnt
-mkdir -p /mnt/{boot/efi,home}
-mount "${DISK}1" /mnt/boot/efi
+mkdir -p /mnt/{boot/EFI,home}
+mount "${DISK}1" /mnt/boot/EFI
 mount "${DISK}4" /mnt/home
 ;;
 esac
