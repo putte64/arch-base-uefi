@@ -37,7 +37,7 @@
 4. Download the git repository and run  with: 
    - `## git clone https://github.com/putte64/arch-base-uefi`
    - `## cd arch-base-uefi`
-   - `## chmod +x arch-base-uefi.sh`
-   - `## run with ./arch-base-uefi.sh`
+   - `## chmod +x *.sh`
+   - `## run with ./InstallArch.sh`
 
 # Remember to edit arch-base-uefi.sh and install.conf before running
