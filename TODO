@@ -1,0 +1,2 @@
+Choice for home-dir on separate disk
+Consider use of LVM for root and home partitions(EFI as normal)
