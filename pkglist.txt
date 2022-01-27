@@ -31,6 +31,9 @@ pipewire
 pipewire-alsa
 pipewire-pulse
 pipewire-jack
+pipewire-zeroconf
+gst-plugin-pipewire
+wireplumber
 bash-completion
 openssh
 rsync
