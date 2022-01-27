@@ -8,7 +8,7 @@
    - `## sed -i 's/^#Para/Para/' /etc/pacman.conf`
 6. Install git `## pacman -S git`
 7. Download the git repository and run  with: 
-   - `## git clone https://github.com/putte64/arch-base-uefi`
+   - `## git clone https://github.com/putte64/arch-base-uefi.git`
    - `## cd arch-base-uefi`
    - `## chmod +x *.sh`
    - run with `## ./InstallArch.sh`
