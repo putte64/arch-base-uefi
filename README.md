@@ -6,7 +6,7 @@
 4. Check synced time service `## timedatectl set-ntp true` (check status with `## timedatectl status`)
 5. Edit '/etc/pacman.conf' to enable ParallelDownloads = 5
    - `## sed -i 's/^#Para/Para/' /etc/pacman.conf`
-6. Install git `## pacman -S git`
+6. Install git `## pacman -Syu git`
 7. Download the git repository and run  with: 
    - `## git clone https://github.com/putte64/arch-base-uefi.git`
    - `## cd arch-base-uefi`
