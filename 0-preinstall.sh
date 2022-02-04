@@ -42,6 +42,11 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
+
+sleep 10
+echo " Ususally crash here"
+sleep 5
+
 mkdir /mnt &>/dev/null # Hiding error message if any
 echo -ne "
 -------------------------------------------------------------------------
