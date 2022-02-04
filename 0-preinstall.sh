@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-  exec 5> debug_prepare.txt
+  exec 5> debug_preinstall.sh.txt
         BASH_XTRACEFD="5"
         PS4='$LINENO: '
         set -ex
@@ -156,7 +156,7 @@ echo -ne "
 "
 pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget libnewt --noconfirm --needed
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
-cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
+cp -R ${SCRIPT_DIR} /mnt/${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 echo -ne "
 -------------------------------------------------------------------------
