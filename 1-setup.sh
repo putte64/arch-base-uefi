@@ -12,6 +12,8 @@ echo -ne "
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
+"
+
 pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
 
