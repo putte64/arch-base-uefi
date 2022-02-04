@@ -1,0 +1,8 @@
+USERNAME=bbk
+PASSWORD=bbk
+nameofmachine=bbkhost
+mountoptions=noatime,compress=zstd,commit=120
+DISK=/dev/vda
+FS=ext4
+TIMEZONE=Europe/Oslo
+KEYMAP=no
