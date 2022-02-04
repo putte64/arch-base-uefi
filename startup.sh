@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+exec 5> debug_startup.sh.txt
+        BASH_XTRACEFD="5"
+        PS4='$LINENO: '
+	set -ex
+
 # This script will ask users about their prefrences 
 # like disk, file system, timezone, keyboard layout,
 # user name, password, etc.
