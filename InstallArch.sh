@@ -1,6 +1,6 @@
 #!/bin/bash
 
-        exec 5> debug_output.txt
+        exec 5> debug_InstallArch.sh.txt
         BASH_XTRACEFD="5"
         PS4='$LINENO: '
         set -e
