@@ -47,7 +47,7 @@ sleep 10
 echo " Ususally crash here"
 sleep 5
 
-mkdir /mnt &>/dev/null # Hiding error message if any
+# mkdir /mnt &>/dev/null # Hiding error message if any
 echo -ne "
 -------------------------------------------------------------------------
                     Installing Prerequisites
