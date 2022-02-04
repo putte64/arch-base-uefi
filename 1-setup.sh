@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-exec 5> debug_arch-base-uefi.txt
+exec 5> debug_setup.sh.txt
         BASH_XTRACEFD="5"
         PS4='$LINENO: '
 	set -ex
 
 ## Load username etc from setup.conf
-source /root/arch-base-uefi/setup.conf
+source /root/arch-base-uefi/install.conf
 echo -ne "
 
 echo "--------------------------------------"
