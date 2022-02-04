@@ -5,17 +5,26 @@ exec 5> debug_arch-base-uefi.txt
         PS4='$LINENO: '
 	set -ex
 
+## Load username etc from setup.conf
+source /root/arch-base-uefi/setup.conf
+echo -ne "
+
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
 pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
+
+sleep 10
+
 echo "-------------------------------------------------"
 echo "Setting up mirrors for optimal download          "
 echo "-------------------------------------------------"
 pacman -S --noconfirm --needed pacman-contrib curl
-pacman -S --noconfirm --needed reflector rsync
+pacman -S --noconfirm --needed reflector rsync grub btrfs-progs arch-install-scripts git
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+
+sleep 15
 
 nc=$(grep -c ^processor /proc/cpuinfo)
 echo "You have " $nc" cores."
@@ -27,19 +36,24 @@ sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
 echo "Changing the compression settings for "$nc" cores."
 sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
+
+sleep 10
+
 echo "-------------------------------------------------"
 echo "       Setup Language to NO and set locale       "
 echo "-------------------------------------------------"
 sed -i 's/^#nb_NO.UTF-8 UTF-8/nb_NO.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone Europe/Oslo
+timedatectl --no-ask-password set-timezone ${TIMEZONE}
 timedatectl --no-ask-password set-ntp 1
 hwclock --systohc
 
 localectl --no-ask-password set-locale LANG="nb_NO.UTF-8" LC_TIME="nb_NO.UTF-8"
 
 # Set keymaps
-localectl --no-ask-password set-keymap no
+localectl --no-ask-password set-keymap ${KEYMAP}
+
+sleep 10
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
@@ -47,9 +61,9 @@ sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /et
 #Add parallel downloading
 sed -i 's/^#Para/Para/' /etc/pacman.conf
 
-#Enable multilib
-sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-pacman -Sy --noconfirm
+# #Enable multilib
+# sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+# pacman -Sy --noconfirm
 
 echo -e "\nInstalling Base System\n"
 
@@ -57,7 +71,15 @@ echo -e "\nInstalling Base System\n"
 # See pkglist.txt for details and change to your needs
 ######################################################
 
-pacman -Sy --needed --noconfirm - < /root/arch-base-uefi/pkglist.txt
+# pacman -Sy --needed --noconfirm - < /root/arch-base-uefi/pkglist.txt
+
+cat /root/arch-base-uefi/pkglist.txt | while read line 
+do
+    echo "INSTALLING: ${line}"
+   sudo pacman -S --noconfirm --needed ${line}
+done
+
+sleeep 10
 
 ################################################
 # determine processor type and install microcode
@@ -79,7 +101,7 @@ esac
 
 echo "processor install ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
 echo $proc_type
-sleep 5
+sleep 10
 
 # Graphics Drivers find and install
 if lspci | grep -E "NVIDIA|GeForce"; then
@@ -113,6 +135,6 @@ fi
 
 echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
 echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
-echo " Done with 1-arch-base-uefi script "
+echo " Done with 1-setup script "
 echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
 echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
