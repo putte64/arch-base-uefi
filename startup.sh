@@ -5,7 +5,7 @@
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # set up a config file
-CONFIG_FILE=$SCRIPT_DIR/setup.conf
+CONFIG_FILE=$SCRIPT_DIR/install.conf
 if [ ! -f $CONFIG_FILE ]; then # check if file exists
     touch -f $CONFIG_FILE # create file if not exists
 fi
@@ -115,9 +115,9 @@ read ssd_drive
 
 case $ssd_drive in
     y|Y|yes|Yes|YES)
-    echo "mountoptions=noatime,compress=zstd,ssd,commit=120" >> setup.conf;;
+    echo "mountoptions=noatime,compress=zstd,ssd,commit=120" >> install.conf;;
     n|N|no|NO|No)
-    echo "mountoptions=noatime,compress=zstd,commit=120" >> setup.conf;;
+    echo "mountoptions=noatime,compress=zstd,commit=120" >> install.conf;;
     *) echo "Wrong option. Try again";drivessd;;
 esac
 }
@@ -135,7 +135,7 @@ echo -ne "
 Please enter full path to disk: (example /dev/sda):
 "
 read option
-echo "DISK=$option" >> setup.conf
+echo "DISK=$option" >> install.conf
 
 drivessd
 set_option DISK $option
