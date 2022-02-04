@@ -10,7 +10,7 @@
         SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
         
     bash startup.sh
-    source $SCRIPT_DIR/setup.conf
+    source $SCRIPT_DIR/install.conf
     bash 0-preinstall.sh
     arch-chroot /mnt /root/arch-base-uefi/1-setup.sh
     arch-chroot /mnt /usr/bin/runuser -u $USERNAME -- /home/$USERNAME/arch-base-uefi/2-user.sh
