@@ -33,7 +33,6 @@ pipewire-alsa
 pipewire-pulse
 pipewire-zeroconf
 gst-plugin-pipewire
-
 bash-completion
 openssh
 rsync
