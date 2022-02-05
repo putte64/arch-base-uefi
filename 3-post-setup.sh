@@ -8,7 +8,7 @@ exec 5> debug_post-setup.sh.txt
 echo -ne "
 -------------------------------------------------------------------------
 Final Setup and Configurations
-GRUB EFI Bootloader Install & Check
+GRUB EFI Bootloader Install & generate fstab
 -------------------------------------------------------------------------
 "
 source /root/arch-base-uefi/install.conf
