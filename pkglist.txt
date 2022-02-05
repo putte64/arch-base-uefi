@@ -6,6 +6,7 @@ xorg-drivers
 xorg-xkill
 xorg-xinit
 xterm
+sddm
 plasma-desktop
 grub
 efibootmgr
@@ -58,7 +59,6 @@ python-notify2
 python-psutil
 python-pyqt5
 python-pip
-sddm
 sddm-kcm
 libreoffice-fresh
 libreoffice-fresh-nb
