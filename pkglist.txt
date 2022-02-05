@@ -62,3 +62,4 @@ libreoffice-fresh
 libreoffice-fresh-nb
 gimp
 gimp-nufraw
+ntp
