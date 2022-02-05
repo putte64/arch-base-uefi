@@ -1,7 +1,9 @@
 #!/bin/bash
+
+set -eu -o pipefail
         
 # Find the name of the folder the scripts are in
-        setfont ter-v14n
+        setfont ter-v12n
         SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
     bash startup.sh
