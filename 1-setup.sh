@@ -90,11 +90,14 @@ echo -ne "
 # Packages installed from pkglist.txt
 #
 #######################################################
+"
 sleeep 10
 
+echo -ne "
 ################################################
 # determine processor type and install microcode
 # ##############################################
+"
 
 proc_type=$(lscpu | awk '/Vendor ID:/ {print $3}')
 case "$proc_type" in
@@ -120,7 +123,7 @@ echo -ne "
                     Installing Graphics Drivers
 -------------------------------------------------------------------------
 "
-# Graphics Drivers find and install
+
 gpu_type=$(lspci)
 if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
     pacman -S nvidia-lts nvidia-utils --noconfirm --needed
