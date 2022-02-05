@@ -56,7 +56,7 @@ sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 #fi
 
 # Create partitions spesific system
-sgdisk -n 0::+300M --typecode=0:ef00 --change-name=0:'EFI' ${DISK} # partition 1 (EFI Partition)
+sgdisk -n 0::+300M --typecode=0:ef00 --change-name=0:'EFIBOOT' ${DISK} # partition 1 (EFI Partition)
 sgdisk -n 0::+2G --typecode=0:8200 --change-name=0:'SWAP' ${DISK} # partition 2 (SWAP Partition)
 sgdisk -n 0::+30G --typecode=0:8304 --change-name=0:'ROOT' ${DISK} # partition 3 (ROOT Partition)
 sgdisk -n 0::-128M --typecode=0:8302 --change-name=0:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
@@ -98,9 +98,9 @@ if [[ "${FS}" == "btrfs" ]]; then
     mkfs.btrfs -L ROOT ${partition3} -f
     mount -t btrfs ${partition3} /mnt
 elif [[ "${FS}" == "ext4" ]]; then
-    mkfs.vfat -F32 -n "EFIBOOT" ${partition1}
+    mkfs.vfat -F32 -L EFIBOOT ${partition1}
     mkfs.ext4 -L ROOT ${partition3}
-    mount -t ext4 ${partition3} /mnt
+    
     mkfs.ext4 -L HOME ${partition4}
     
 elif [[ "${FS}" == "luks" ]]; then
@@ -136,6 +136,7 @@ fi
 
 # mount target
 mkdir -p /mnt/{boot/EFI,home}
+mount -t ext4 ${partition3} /mnt
 mount -t vfat -L EFIBOOT /mnt/boot/EFI
 mount -t ext4 ${partition4} /mnt/home
 mkswap ${partition2}
