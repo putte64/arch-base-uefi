@@ -12,6 +12,7 @@ grub
 efibootmgr
 networkmanager
 network-manager-applet
+pipewire-jack
 dialog
 wpa_supplicant
 mtools
@@ -31,7 +32,6 @@ alsa-utils
 pipewire
 pipewire-alsa
 pipewire-pulse
-pipewire-jack
 pipewire-zeroconf
 gst-plugin-pipewire
 wireplumber
