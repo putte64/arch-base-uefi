@@ -98,9 +98,8 @@ if [[ "${FS}" == "btrfs" ]]; then
     mkfs.btrfs -L ROOT ${partition3} -f
     mount -t btrfs ${partition3} /mnt
 elif [[ "${FS}" == "ext4" ]]; then
-    mkfs.vfat -F32 -L EFIBOOT ${partition1}
+    mkfs.vfat -F32 -n "EFIBOOT" ${partition1}
     mkfs.ext4 -L ROOT ${partition3}
-    
     mkfs.ext4 -L HOME ${partition4}
     
 elif [[ "${FS}" == "luks" ]]; then
