@@ -12,7 +12,6 @@ grub
 efibootmgr
 networkmanager
 network-manager-applet
-pipewire-jack
 dialog
 wpa_supplicant
 mtools
