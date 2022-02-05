@@ -48,12 +48,18 @@ sgdisk -Z ${DISK} # zap all on disk
 sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 
 # create partitions
-sgdisk -n 1::+1M --typecode=1:ef02 --change-name=1:'BIOSBOOT' ${DISK} # partition 1 (BIOS Boot Partition)
-sgdisk -n 2::+300M --typecode=2:ef00 --change-name=2:'EFIBOOT' ${DISK} # partition 2 (UEFI Boot Partition)
-sgdisk -n 3::-0 --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (Root), default start, remaining
-if [[ ! -d "/sys/firmware/efi" ]]; then # Checking for bios system
-    sgdisk -A 1:set:2 ${DISK}
-fi
+#sgdisk -n 1::+1M --typecode=1:ef02 --change-name=1:'BIOSBOOT' ${DISK} # partition 1 (BIOS Boot Partition)
+#sgdisk -n 2::+300M --typecode=2:ef00 --change-name=2:'EFIBOOT' ${DISK} # partition 2 (UEFI Boot Partition)
+#sgdisk -n 3::-0 --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (Root), default start, remaining
+#if [[ ! -d "/sys/firmware/efi" ]]; then # Checking for bios system
+#    sgdisk -A 1:set:2 ${DISK}
+#fi
+
+# Create partitions spesific system
+sgdisk -n 0::+300M --typecode=0:ef00 --change-name=0:'EFI' ${DISK} # partition 1 (EFI Partition)
+sgdisk -n 0::+2G --typecode=0:8200 --change-name=0:'SWAP' ${DISK} # partition 2 (SWAP Partition)
+sgdisk -n 0::+30G --typecode=0:8304 --change-name=0:'ROOT' ${DISK} # partition 3 (ROOT Partition)
+sgdisk -n 0::-128M --typecode=0:8302 --change-name=0:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -76,11 +82,13 @@ mountallsubvol () {
 }
 
 if [[ "${DISK}" =~ "nvme" ]]; then
-    partition2=${DISK}p2
+    partition1=${DISK}p1
     partition3=${DISK}p3
+    partition4=${DISK}p4
 else
-    partition2=${DISK}2
+    partition1=${DISK}1
     partition3=${DISK}3
+    partition4=${DISK}4
 fi
 
 if [[ "${FS}" == "btrfs" ]]; then
@@ -88,9 +96,11 @@ if [[ "${FS}" == "btrfs" ]]; then
     mkfs.btrfs -L ROOT ${partition3} -f
     mount -t btrfs ${partition3} /mnt
 elif [[ "${FS}" == "ext4" ]]; then
-    mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
+    mkfs.vfat -F32 -n "EFIBOOT" ${partition1}
     mkfs.ext4 -L ROOT ${partition3}
     mount -t ext4 ${partition3} /mnt
+    mkfs.ext4 -L HOME ${partition4}
+    
 elif [[ "${FS}" == "luks" ]]; then
     mkfs.vfat -F32 -n "EFIBOOT" ${partition2}
 # enter luks password to cryptsetup and format root partition
@@ -123,9 +133,9 @@ mount -t btrfs -o subvol=@ -L ROOT /mnt
 fi
 
 # mount target
-mkdir /mnt/boot
-mkdir /mnt/boot/efi
-mount -t vfat -L EFIBOOT /mnt/boot/
+mkdir -p /mnt/{boot/EFI,home}
+mount -t vfat -L EFIBOOT /mnt/boot/EFI
+mount -t ext4 ${partition4} /mnt/home
 
 if ! grep -qs '/mnt' /proc/mounts; then
     echo "Drive is not mounted can not continue"
