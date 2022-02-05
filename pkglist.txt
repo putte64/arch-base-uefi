@@ -58,6 +58,7 @@ python-notify2
 python-psutil
 python-pyqt5
 python-pip
+sddm
 sddm-kcm
 libreoffice-fresh
 libreoffice-fresh-nb
