@@ -140,7 +140,7 @@ echo -ne "
 "
 
 #SETUP IS WRONG THIS IS RUN
-if ! source /root/ArchTitus/setup.conf; then
+if ! source /root/arch-base-uefi/install.conf; then
 	# Loop through user input until the user gives a valid username
 	while true
 	do 
@@ -154,11 +154,11 @@ if ! source /root/ArchTitus/setup.conf; then
 		echo "Incorrect username."
 	done 
 # convert name to lowercase before saving to setup.conf
-echo "username=${username,,}" >> ${HOME}/ArchTitus/setup.conf
+echo "username=${username,,}" >> ${HOME}/arch-base-uefi/install.conf
 
     #Set Password
     read -p "Please enter password:" password
-echo "password=${password,,}" >> ${HOME}/ArchTitus/setup.conf
+echo "password=${password,,}" >> ${HOME}/arch-base-uefi/install.conf
 
     # Loop through user input until the user gives a valid hostname, but allow the user to force save 
 	while true
@@ -177,7 +177,7 @@ echo "password=${password,,}" >> ${HOME}/ArchTitus/setup.conf
 		fi 
 	done 
 
-    echo "nameofmachine=${nameofmachine,,}" >> ${HOME}/ArchTitus/setup.conf
+    echo "nameofmachine=${nameofmachine,,}" >> ${HOME}/arch-base-uefi/install.conf
 fi
 
 
