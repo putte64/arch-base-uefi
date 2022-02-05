@@ -15,7 +15,7 @@ echo "--------------------------------------"
 "
 
 pacman -S networkmanager dhclient --noconfirm --needed
-systemctl enable --now NetworkManager
+# systemctl enable --now NetworkManager
 
 sleep 10
 
