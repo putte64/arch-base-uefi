@@ -143,14 +143,14 @@ pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyri
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt/${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-echo -ne "
--------------------------------------------------------------------------
-                    GRUB BIOS Bootloader Install & Check
--------------------------------------------------------------------------
-"
-if [[ ! -d "/sys/firmware/efi" ]]; then
-    grub-install --boot-directory=/mnt/boot ${DISK}
-fi
+#echo -ne "
+#-------------------------------------------------------------------------
+#                    GRUB BIOS Bootloader Install & Check
+#-------------------------------------------------------------------------
+#"
+#if [[ ! -d "/sys/firmware/efi" ]]; then
+#    grub-install --boot-directory=/mnt/boot ${DISK}
+#fi
 echo -ne "
 -------------------------------------------------------------------------
                     Checking for low memory systems <8G
