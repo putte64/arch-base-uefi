@@ -5,37 +5,22 @@
         PS4='$LINENO: '
         set -ex
 
-#!/usr/bin/env bash
-#-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
-#-------------------------------------------------------------------------
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 echo -ne "
 -------------------------------------------------------------------------
-   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
--------------------------------------------------------------------------
-                    Automated Arch Linux Installer
--------------------------------------------------------------------------
 Setting up mirrors for optimal download
+-------------------------------------------------------------------------
 "
 source install.conf
 iso=$(curl -4 ifconfig.co/country-iso)
 timedatectl set-ntp true
 pacman -S --noconfirm pacman-contrib terminus-font
-setfont ter-v22b
+setfont ter-v18b
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
-pacman -S --noconfirm reflector rsync grub
+pacman -S --noconfirm --needed reflector rsync
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+
 echo -ne "
 -------------------------------------------------------------------------
                     Setting up $iso mirrors for faster downloads
@@ -43,8 +28,7 @@ echo -ne "
 "
 reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
 
-sleep 10
-echo " Ususally crash here"
+echo "Did not mkdir /mnt here"
 sleep 5
 
 # mkdir /mnt &>/dev/null # Hiding error message if any
@@ -53,7 +37,7 @@ echo -ne "
                     Installing Prerequisites
 -------------------------------------------------------------------------
 "
-pacman -S --noconfirm gptfdisk btrfs-progs
+pacman -S --noconfirm --needed gptfdisk
 echo -ne "
 -------------------------------------------------------------------------
                     Formating Disk
@@ -70,7 +54,7 @@ sgdisk -n 3::-0 --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (
 if [[ ! -d "/sys/firmware/efi" ]]; then # Checking for bios system
     sgdisk -A 1:set:2 ${DISK}
 fi
-# make filesystems
+
 echo -ne "
 -------------------------------------------------------------------------
                     Creating Filesystems
@@ -126,6 +110,7 @@ elif [[ "${FS}" == "luks" ]]; then
 # mount subvolumes
     mountallsubvol
 # store uuid of encrypted partition for grub
+
     echo encryped_partition_uuid=$(blkid -s UUID -o value ${partition3}) >> setup.conf
 fi
 
@@ -154,7 +139,7 @@ echo -ne "
                     Arch Install on Main Drive
 -------------------------------------------------------------------------
 "
-pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget libnewt --noconfirm --needed
+pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget --noconfirm --needed
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt/${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
