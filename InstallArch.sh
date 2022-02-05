@@ -1,9 +1,4 @@
 #!/bin/bash
-
-        exec 5> debug_InstallArch.sh.txt
-        BASH_XTRACEFD="5"
-        PS4='$LINENO: '
-        set -ex
         
 # Find the name of the folder the scripts are in
         setfont ter-v18b
