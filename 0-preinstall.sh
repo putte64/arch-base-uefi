@@ -83,10 +83,12 @@ mountallsubvol () {
 
 if [[ "${DISK}" =~ "nvme" ]]; then
     partition1=${DISK}p1
+    partition2=${DISK}p2
     partition3=${DISK}p3
     partition4=${DISK}p4
 else
     partition1=${DISK}1
+    partition2=${DISK}2
     partition3=${DISK}3
     partition4=${DISK}4
 fi
@@ -136,6 +138,9 @@ fi
 mkdir -p /mnt/{boot/EFI,home}
 mount -t vfat -L EFIBOOT /mnt/boot/EFI
 mount -t ext4 ${partition4} /mnt/home
+mkswap ${partition2}
+swapon ${partition2}
+
 
 if ! grep -qs '/mnt' /proc/mounts; then
     echo "Drive is not mounted can not continue"
@@ -146,13 +151,15 @@ if ! grep -qs '/mnt' /proc/mounts; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-                    Arch Install on Main Drive
+                    Arch Install on Main Drive + fstab
 -------------------------------------------------------------------------
 "
 pacstrap /mnt base base-devel linux-lts linux-firmware vim nano sudo archlinux-keyring wget --noconfirm --needed
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+genfstab -U /mnt >> /mnt/etc/fstab
+
 #echo -ne "
 #-------------------------------------------------------------------------
 #                    GRUB BIOS Bootloader Install & Check
