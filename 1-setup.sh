@@ -120,26 +120,33 @@ elif lspci | grep -E "Integrated Graphics Controller"; then
 fi
 echo -e "\nDone!\n"
 
-# User create and password setting
-if ! source /root/arch-base-uefi/install.conf; then
-	read -p "Please enter username:" username
-echo "username=$username" >> ${HOME}/arch-base-uefi/install.conf
-fi
+echo -ne "
+-------------------------------------------------------------------------
+                    Adding User
+-------------------------------------------------------------------------
+"
+if [ $(whoami) = "root"  ]; then
+    groupadd libvirt
+    useradd -m -G wheel,libvirt -s /bin/bash $USERNAME 
 
-if [ $(whoami) = "root"  ];
-then
-    useradd -m -G wheel -s /bin/bash $username 
-	passwd $username
-	cp -R /root/arch-base-uefi /home/$username/
-    chown -R $username: /home/$username/arch-base-uefi
-	read -p "Please name your machine:" nameofmachine
+# use chpasswd to enter $USERNAME:$password
+    echo "$USERNAME:$PASSWORD" | chpasswd
+	cp -R /root/arch-base-uefi /home/$USERNAME/
+    chown -R $USERNAME: /home/$USERNAME/arch-base-uefi
+# enter $nameofmachine to /etc/hostname
 	echo $nameofmachine > /etc/hostname
 else
 	echo "You are already a user proceed with aur installs"
 fi
-
-echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
-echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
-echo " Done with 1-setup script "
-echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
-echo " ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
+if [[ ${FS} == "luks" ]]; then
+# Making sure to edit mkinitcpio conf if luks is selected
+# add encrypt in mkinitcpio.conf before filesystems in hooks
+    sed -i 's/filesystems/encrypt filesystems/g' /etc/mkinitcpio.conf
+# making mkinitcpio with linux kernel
+    mkinitcpio -p linux
+fi
+echo -ne "
+-------------------------------------------------------------------------
+                    SYSTEM READY FOR 2-user.sh
+-------------------------------------------------------------------------
+"
