@@ -3,7 +3,7 @@
 # Find the name of the folder the scripts are in
         setfont ter-v14n
         SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-    sleep 10   
+
     bash startup.sh
     source $SCRIPT_DIR/install.conf
     bash 0-preinstall.sh
