@@ -151,7 +151,7 @@ echo -ne "
 "
 pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget --noconfirm --needed
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
-cp -R ${SCRIPT_DIR} /mnt/${SCRIPT_DIR}
+cp -R ${SCRIPT_DIR} /mnt${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 #echo -ne "
 #-------------------------------------------------------------------------
