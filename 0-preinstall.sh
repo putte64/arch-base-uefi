@@ -16,7 +16,7 @@ source install.conf
 iso=$(curl -4 ifconfig.co/country-iso)
 timedatectl set-ntp true
 pacman -S --noconfirm pacman-contrib terminus-font
-setfont ter-v14n
+setfont ter-v12n
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 pacman -S --noconfirm --needed reflector rsync
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
