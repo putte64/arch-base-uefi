@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-exec 5> debug_finalize.txt
+exec 5> debug_post-setup.sh.txt
         BASH_XTRACEFD="5"
         PS4='$LINENO: '
         set -ex
