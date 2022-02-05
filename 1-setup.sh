@@ -112,25 +112,34 @@ esac
 
 echo "processor install ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤"
 echo $proc_type
+
 sleep 10
 
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Graphics Drivers
+-------------------------------------------------------------------------
+"
 # Graphics Drivers find and install
-if lspci | grep -E "NVIDIA|GeForce"; then
-    pacman -S nvidia-lts nvidia-settings nvidia-utils --noconfirm --needed
-	
-elif lspci | grep -E "Radeon"; then
+gpu_type=$(lspci)
+if grep -E "NVIDIA|GeForce" <<< ${gpu_type}; then
+    pacman -S nvidia-lts nvidia-utils --noconfirm --needed
+	nvidia-xconfig
+elif lspci | grep 'VGA' | grep -E "Radeon|AMD"; then
     pacman -S xf86-video-amdgpu --noconfirm --needed
-    
-elif lspci | grep -E "Integrated Graphics Controller"; then
-    pacman -S libva-intel-driver libvdpau-va-gl lib32-vulkan-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
+elif grep -E "Integrated Graphics Controller" <<< ${gpu_type}; then
+    pacman -S libva-intel-driver libvdpau-va-gl vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
+elif grep -E "Intel Corporation UHD" <<< ${gpu_type}; then
+    pacman -S libva-intel-driver libvdpau-va-gl n-intel vulkan-intel libva-intel-driver libva-utils --needed --noconfirm
 fi
-echo -e "\nDone!\n"
-
 echo -ne "
 -------------------------------------------------------------------------
                     Adding User
 -------------------------------------------------------------------------
 "
+
+sleep 10
+
 if [ $(whoami) = "root"  ]; then
     groupadd libvirt
     useradd -m -G wheel,libvirt -s /bin/bash $USERNAME 
