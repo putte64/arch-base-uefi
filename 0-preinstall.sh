@@ -19,30 +19,32 @@ pacman -S --noconfirm pacman-contrib terminus-font
 setfont ter-v12n
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 pacman -S --noconfirm --needed reflector rsync
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+
 
 echo -ne "
 -------------------------------------------------------------------------
                     Setting up $iso mirrors for faster downloads
 -------------------------------------------------------------------------
 "
+sleep 5
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
 
-echo "Did not mkdir /mnt here"
-sleep 5
-
-# mkdir /mnt &>/dev/null # Hiding error message if any
 echo -ne "
 -------------------------------------------------------------------------
                     Installing Prerequisites
 -------------------------------------------------------------------------
 "
+sleep 5
 pacman -S --noconfirm --needed gptfdisk
+
+clear
 echo -ne "
 -------------------------------------------------------------------------
                     Formating Disk
 -------------------------------------------------------------------------
 "
+sleep 5
 # disk prep
 sgdisk -Z ${DISK} # zap all on disk
 sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
@@ -60,12 +62,16 @@ sgdisk -n 0::+300M --typecode=0:ef00 --change-name=0:'EFIBOOT' ${DISK} # partiti
 sgdisk -n 0::+2G --typecode=0:8200 --change-name=0:'SWAP' ${DISK} # partition 2 (SWAP Partition)
 sgdisk -n 0::+30G --typecode=0:8304 --change-name=0:'ROOT' ${DISK} # partition 3 (ROOT Partition)
 sgdisk -n 0::-128M --typecode=0:8302 --change-name=0:'HOME' ${DISK} # partition 4 (HOME Partition), default start, remaining-128M
+lsblk -f
+sleep 15
+clear
 
 echo -ne "
 -------------------------------------------------------------------------
                     Creating Filesystems
 -------------------------------------------------------------------------
 "
+sleep 5
 createsubvolumes () {
     btrfs subvolume create /mnt/@
     btrfs subvolume create /mnt/@home
@@ -150,6 +156,10 @@ if ! grep -qs '/mnt' /proc/mounts; then
     echo "Rebooting in 1 Second ..." && sleep 1
     reboot now
 fi
+lsblk -f
+sleep 15
+clear
+
 echo -ne "
 -------------------------------------------------------------------------
                     Arch Install on Main Drive + fstab
@@ -160,6 +170,8 @@ echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 genfstab -U /mnt >> /mnt/etc/fstab
+sleep 5
+clear
 
 #echo -ne "
 #-------------------------------------------------------------------------
@@ -192,3 +204,5 @@ echo -ne "
                     SYSTEM READY FOR 1-setup.sh
 -------------------------------------------------------------------------
 "
+sleep 5
+clear
