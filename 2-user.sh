@@ -39,8 +39,6 @@ PKGS=(
 'ttf-hack'
 'ttf-meslo' # Nerdfont package
 'ttf-roboto'
-'ttf-ms-win10-auto'
-'zoom' # video conferences
 'vlc'
 )
 
