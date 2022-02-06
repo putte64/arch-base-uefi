@@ -134,8 +134,9 @@ mount -t btrfs -o subvol=@ -L ROOT /mnt
 fi
 
 # mount target
-mkdir -p /mnt/{boot/EFI,home}
+
 mount -t ext4 ${partition3} /mnt
+mkdir -p /mnt/{boot/EFI,home} &&
 mount -t vfat -L EFIBOOT /mnt/boot/EFI
 mount -t ext4 ${partition4} /mnt/home
 mkswap ${partition2}
