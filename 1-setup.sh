@@ -14,8 +14,8 @@ echo "--          Network Setup           --"
 echo "--------------------------------------"
 "
 
-pacman -S networkmanager dhclient --noconfirm --needed
-# systemctl enable --now NetworkManager
+pacman -S networkmanager network-manager-applet dhclient --noconfirm --needed
+systemctl enable NetworkManager
 
 sleep 10
 
@@ -23,7 +23,7 @@ echo "-------------------------------------------------"
 echo "Setting up mirrors for optimal download          "
 echo "-------------------------------------------------"
 pacman -S --noconfirm --needed pacman-contrib curl
-pacman -S --noconfirm --needed reflector rsync grub btrfs-progs arch-install-scripts git
+pacman -S --noconfirm --needed reflector rsync grub arch-install-scripts git
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 
 sleep 15
