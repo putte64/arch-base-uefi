@@ -169,6 +169,8 @@ pacstrap /mnt base base-devel linux-lts linux-firmware vim nano sudo archlinux-k
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt${SCRIPT_DIR}
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+
+#echo "UUID=device_UUID none swap defaults 0 0" >> /mnt/etc/fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 sleep 5
 clear
