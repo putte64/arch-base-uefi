@@ -15,7 +15,7 @@ Setting up mirrors for optimal download
 source install.conf
 iso=$(curl -4 ifconfig.co/country-iso)
 timedatectl set-ntp true
-pacman -S --noconfirm pacman-contrib terminus-font
+pacman -S --noconfirm --needed pacman-contrib terminus-font
 setfont ter-v12n
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 pacman -S --noconfirm --needed reflector rsync
