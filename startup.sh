@@ -16,7 +16,7 @@ if [ ! -f $CONFIG_FILE ]; then # check if file exists
     touch -f $CONFIG_FILE # create file if not exists
 fi
 
-# set options in setup.conf
+# set options in install.conf
 set_option() {
     if grep -Eq "^${1}.*" $CONFIG_FILE; then # check if option exists
         sed -i -e "/^${1}.*/d" $CONFIG_FILE # delete option if exists
