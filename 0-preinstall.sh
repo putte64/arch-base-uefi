@@ -120,11 +120,11 @@ fi
 
 # mount target
 
-mount -t ext4 ${partition3} /mnt
+mount -t ext4 -L ROOT /mnt
 mkdir -p /mnt/{boot,home} &&
 mount -t vfat -L EFIBOOT /mnt/boot
-mount -t ext4 ${partition4} /mnt/home
-swapon ${partition2}
+mount -t ext4 -L HOME /mnt/home
+swapon -L SWAP
 
 
 if ! grep -qs '/mnt' /proc/mounts; then
