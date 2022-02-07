@@ -47,11 +47,14 @@ sleep 10
 echo "-------------------------------------------------"
 echo "       Setup Language to NO and set locale       "
 echo "-------------------------------------------------"
+
+ln -sf /usr/share/zoneinfo/"$(curl --fail https://ipapi.co/timezone)" /etc/localtime
+hwclock --systohc
 sed -i 's/^#nb_NO.UTF-8 UTF-8/nb_NO.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone ${TIMEZONE}
-timedatectl --no-ask-password set-ntp 1
-hwclock --systohc
+#timedatectl --no-ask-password set-timezone ${TIMEZONE}
+timedatectl --no-ask-password set-ntp true
+
 
 localectl --no-ask-password set-locale LANG="nb_NO.UTF-8" LC_TIME="nb_NO.UTF-8"
 
