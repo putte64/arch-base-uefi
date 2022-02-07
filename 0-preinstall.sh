@@ -105,6 +105,7 @@ if [[ "${FS}" == "btrfs" ]]; then
     mount -t btrfs ${partition3} /mnt
 elif [[ "${FS}" == "ext4" ]]; then
     mkfs.vfat -F32 -n "EFIBOOT" ${partition1}
+    mkswap -L SWAP ${partition2}
     mkfs.ext4 -L ROOT ${partition3}
     mkfs.ext4 -L HOME ${partition4}
 fi
@@ -123,7 +124,6 @@ mount -t ext4 ${partition3} /mnt
 mkdir -p /mnt/{boot,home} &&
 mount -t vfat -L EFIBOOT /mnt/boot
 mount -t ext4 ${partition4} /mnt/home
-mkswap ${partition2}
 swapon ${partition2}
 
 
