@@ -27,6 +27,7 @@ inetutils
 dnsutils
 cups
 hplip
+wireplumber
 alsa-utils
 pipewire
 pipewire-alsa
