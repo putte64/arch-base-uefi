@@ -7,6 +7,7 @@ xorg-xkill
 xorg-xinit
 xterm
 sddm
+wireplumber
 plasma-desktop
 grub
 efibootmgr
@@ -27,7 +28,6 @@ inetutils
 dnsutils
 cups
 hplip
-wireplumber
 alsa-utils
 pipewire
 pipewire-alsa
