@@ -15,6 +15,7 @@ pipewire-zeroconf
 gst-plugin-pipewire
 wireplumber
 plasma-desktop
+dolphin
 grub
 efibootmgr
 networkmanager
