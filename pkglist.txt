@@ -7,6 +7,12 @@ xorg-xkill
 xorg-xinit
 xterm
 sddm
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+pipewire-zeroconf
+gst-plugin-pipewire
 wireplumber
 plasma-desktop
 grub
@@ -29,11 +35,7 @@ dnsutils
 cups
 hplip
 alsa-utils
-pipewire
-pipewire-alsa
-pipewire-pulse
-pipewire-zeroconf
-gst-plugin-pipewire
+
 bash-completion
 openssh
 rsync
