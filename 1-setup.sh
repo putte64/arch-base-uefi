@@ -60,7 +60,7 @@ localectl --no-ask-password set-locale LANG="nb_NO.UTF-8" LC_TIME="nb_NO.UTF-8"
 
 # Set keymaps
 # localectl --no-ask-password set-keymap ${KEYMAP}
-echo 'KEYMAP=no' >> /etc/vconsole.conf
+echo "KEYMAP=no" >> /etc/vconsole.conf
 
 sleep 10
 
