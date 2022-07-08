@@ -5,7 +5,7 @@ exec 5> debug_setup.sh.txt
         PS4='$LINENO: '
 	set -ex
 
-## Load username etc from setup.conf
+## Load username etc from install.conf
 source /root/arch-base-uefi/install.conf
 echo -ne "
 
