@@ -35,7 +35,7 @@ dnsutils
 cups
 hplip
 alsa-utils
-
+alacritty
 bash-completion
 openssh
 rsync
