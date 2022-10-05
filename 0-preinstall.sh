@@ -44,6 +44,8 @@ echo -ne "
                     Formating Disk
 -------------------------------------------------------------------------
 "
+umount -A --recursive /mnt # make sure everything is unmounted before we start
+
 sleep 5
 # disk prep
 sgdisk -Z ${DISK} # zap all on disk
