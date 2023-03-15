@@ -9,11 +9,15 @@ xterm
 sddm
 pipewire
 pipewire-alsa
+pipewire-audio
 pipewire-pulse
 pipewire-jack
+pipewire-v4l2
 pipewire-zeroconf
+gstreamer
 gst-plugin-pipewire
 wireplumber
+qpwgraph
 plasma-desktop
 kwallet-pam
 dolphin
