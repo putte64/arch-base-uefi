@@ -39,6 +39,8 @@ nfs-utils
 inetutils
 dnsutils
 cups
+print-manager
+system-config-printer
 hplip
 alsa-utils
 alacritty
